@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Phone number normalization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        #phoneInput {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #555;
+        }
+        p {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Phone number normalization</h1>
+    </header>
+    <div class="container">
+        <h1>Enter the phone number for normalization:</h1>
+        <input type="text" id="phoneInput" placeholder="Phone number">
+        <button onclick="normalizePhone()">Normalize</button>
+        <p id="normalizedPhoneNumber"></p>
+    </div>
+
+    <script>
+        function normalizePhone() {
+            var phoneInput = document.getElementById('phoneInput').value;
+
+            fetch('/normalize-phone', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 'phone_number': phoneInput })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('normalizedPhoneNumber').textContent = 'Нормализованный номер: ' + data.normalized_phone_number;
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+
+
